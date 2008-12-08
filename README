@@ -1,2 +1,12 @@
-initial readme
+###############################################
+#########
+##    
+#       David Austin ITMAT @ UPENN 2008
+#
+#
+#
+
+Merb Application that will eventually import both 
+pep & prot xml files into a db for further processing and viewing.
+
 
