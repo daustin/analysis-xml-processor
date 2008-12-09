@@ -2,7 +2,7 @@ class NegmodelDistribution
   include DataMapper::Resource
   
   property :id, Serial
-  property :type, String
+  property :type, String, :length => (0..512)
 
   has n, :parameters
 

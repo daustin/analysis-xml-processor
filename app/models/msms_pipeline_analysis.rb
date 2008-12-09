@@ -3,10 +3,10 @@ class MsmsPipelineAnalysis
   
   property :id, Serial
   property :date, DateTime
-  property :xmlns, String
-  property :xmlns_xsi, String
-  property :xsi_schemaLocation, String
-  property :summary_xml, String
+  property :xmlns, String, :length => (0..512)
+  property :xsi, String, :length => (0..512)
+  property :schemaLocation, String, :length => (0..512)
+  property :summary_xml, String, :length => (0..512)
 
   has n, :analysis_summaries
   has n, :dataset_derivations

@@ -2,7 +2,7 @@ class AnalysisTimestamp
   include DataMapper::Resource
   
   property :id, Serial
-  property :analysis, String
+  property :analysis, String, :length => (0..512)
   property :time, DateTime
   property :search_id, Integer #workaround for dupids
   

@@ -2,7 +2,7 @@ class AnalysisSummary
   include DataMapper::Resource
   
   property :id, Serial
-  property :analysis, String
+  property :analysis, String, :length => (0..512)
   property :time, DateTime
 
   has 1, :peptideprophet_summary

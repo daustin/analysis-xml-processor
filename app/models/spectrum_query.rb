@@ -2,7 +2,7 @@ class SpectrumQuery
   include DataMapper::Resource
   
   property :id, Serial
-  property :spectrum, String
+  property :spectrum, String, :length => (0..512)
   property :start_scan, Integer
   property :end_scan, Integer
   property :precursor_neutral_mass, Float

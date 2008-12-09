@@ -2,7 +2,7 @@ class AnalysisResult
   include DataMapper::Resource
   
   property :id, Serial
-  property :analysis, String
+  property :analysis, String, :length => (0..512)
 
   has 1, :peptideprophet_result
 
