@@ -2,7 +2,7 @@ class MixturemodelDistribution
   include DataMapper::Resource
   
   property :id, Serial
-  property :name, String, :length => (0..512)
+  property :name, String, :length => (0..1000)
   property :negmean, Float
 
   has 1, :posmodel_distribution

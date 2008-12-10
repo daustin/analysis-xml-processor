@@ -2,8 +2,8 @@ class Parameter
   include DataMapper::Resource
   
   property :id, Serial
-  property :name, String, :length => (0..512)
-  property :value, String, :length => (0..512)
+  property :name, String, :length => (0..1000)
+  property :value, String, :length => (0..1000)
 
   belongs_to :posmodel_distribution
   belongs_to :negmodel_distribution

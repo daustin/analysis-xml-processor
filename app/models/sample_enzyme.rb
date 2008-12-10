@@ -2,7 +2,7 @@ class SampleEnzyme
   include DataMapper::Resource
   
   property :id, Serial
-  property :name, String, :length => (0..512)
+  property :name, String, :length => (0..1000)
   
   has n, :specificities
 

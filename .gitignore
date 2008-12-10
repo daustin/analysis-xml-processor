@@ -18,3 +18,5 @@ src/*
 .svn/*
 gems/*
 bin/*
+interact*.xml
+

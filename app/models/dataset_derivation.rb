@@ -5,7 +5,7 @@ class DatasetDerivation
   property :generation_no, Integer
 
   belongs_to :msms_pipeline_analysis, :class_name => 'MsmsPipelineAnalysis'
-
+  belongs_to :protein_summary
 
 
 end

@@ -2,8 +2,8 @@ class InteractSummary
   include DataMapper::Resource
   
   property :id, Serial
-  property :filename, String, :length => (0..512)
-  property :directory, String, :length => (0..512)
+  property :filename, String, :length => (0..1000)
+  property :directory, String, :length => (0..1000)
 
 
 
