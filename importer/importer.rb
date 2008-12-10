@@ -11,8 +11,12 @@ end
 
 class Importer
 
-  def init
 
+
+  def initialize(i = 100)
+    @num_nodes = i
+    @count = 1
+    @last_percent = 0
   end
   
   def traverseNode(n, num_tabs, parent_name = nil, parent = nil)
@@ -50,6 +54,12 @@ class Importer
       puts "EEERRRRRRRRRR => " + "#{klass.class}"
       puts YAML.dump(klass)
     end
+    #puts "count: #{@count.to_f/@num_nodes.to_f}"
+    if (((@count.to_f/@num_nodes.to_f)*100).floor > @last_percent)
+      @last_percent = ((@count.to_f/@num_nodes.to_f)*100).floor 
+      puts "#{@last_percent}%"
+    end
+    @count += 1
 
     n.children.each do |c|
       traverseNode(c, num_tabs+1, n.name, klass)
@@ -78,7 +88,7 @@ puts "setting up db space.."
 
 DataMapper.setup(:default, "sqlite3:///#{Dir.pwd}/test.db")
 DataMapper::Logger.new(STDOUT, :error) 
-DataObjects::Sqlite3.logger = DataObjects::Logger.new(STDOUT, 0)
+# DataObjects::Sqlite3.logger = DataObjects::Logger.new(STDOUT, 0)
 
 # DataMapper.setup(:default, {:host => 'localhost', :database => 'analysis_xml', :user => 'axml'})
 # DataMapper::Logger.new(STDOUT, :debug) 
@@ -91,14 +101,22 @@ DataMapper.auto_migrate!
 puts "Reading XML File #{ARGV[0]}..."
 
 doc = Nokogiri::XML(open("#{ARGV[0]}"))
-
-imp = Importer.new
+size = doc.root.xpath('.//*').size
+puts "Found #{size} nodes."
+imp = Importer.new(size)
 imp.traverseNode(doc.root, 0)
 
 unless ARGV[1].nil?
   puts "Reading XML File #{ARGV[1]}..."
+  
   doc = Nokogiri::XML(open("#{ARGV[1]}"))
+  size = doc.root.xpath('.//*').size
+  puts "Found #{size} nodes."
+  imp = Importer.new(size)
   imp.traverseNode(doc.root, 0)
+  
+
+
 end
 
 
