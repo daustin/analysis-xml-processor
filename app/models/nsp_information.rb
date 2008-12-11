@@ -2,7 +2,7 @@ class NspInformation
   include DataMapper::Resource
   
   property :id, Serial
-  property :neighboring_bin_smoothing, String, :length => (0..1000)
+  property :neighboring_bin_smoothing, String, :length => (0..2000)
 
   has n, :nsp_distributions
   

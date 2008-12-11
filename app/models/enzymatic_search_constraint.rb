@@ -2,7 +2,7 @@ class EnzymaticSearchConstraint
   include DataMapper::Resource
   
   property :id, Serial
-  property :enzyme, String, :length => (0..1000)
+  property :enzyme, String, :length => (0..2000)
   property :max_num_internal_cleavages, Integer
   property :min_number_termini, Integer
 

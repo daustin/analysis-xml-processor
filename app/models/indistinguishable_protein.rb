@@ -2,7 +2,7 @@ class IndistinguishableProtein
   include DataMapper::Resource
   
   property :id, Serial
-  property :protein_name, String, :length => (0..1000)
+  property :protein_name, String, :length => (0..2000)
 
   has n, :annotations
 

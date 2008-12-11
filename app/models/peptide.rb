@@ -2,7 +2,7 @@ class Peptide
   include DataMapper::Resource
   
   property :id, Serial
-  property :peptide_sequence, String, :length => (0..1000)
+  property :peptide_sequence, String, :length => (0..2000)
   property :charge, Integer
   property :initial_probability, Float
   property :nsp_adjusted_probability, Float
@@ -15,6 +15,7 @@ class Peptide
   property :exp_tot_instances, Float
   property :is_contributing_evidence, Boolean
   property :calc_neutral_pep_mass, Float
+  property :peptide_group_designator,  String, :length => (0..2000)
 
   has 1, :modification_info
   

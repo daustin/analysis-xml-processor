@@ -2,7 +2,7 @@ class ModificationInfo
   include DataMapper::Resource
   
   property :id, Serial
-  property :modified_peptide, String, :length => (0..1000)
+  property :modified_peptide, String, :length => (0..2000)
 
   has n, :mod_aminoacid_masses
 

@@ -17,20 +17,19 @@ class Importer
     @num_nodes = i
     @count = 1
     @last_percent = 0
+    @last_time = Time.now
   end
   
   def traverseNode(n, num_tabs, parent_name = nil, parent = nil)
     tabs = ''
     num_tabs.times {tabs += "\t"}
-    # puts "#{tabs}#{n.name} with attributes: (#{n.attributes})"
+    # puts "#{tabs}#{n.name} with attributes: (#{n.attributes})" #debug
     # create the node
     klass = eval("#{getClassName(n.name)}.new")
     #set the attributes
     if n.name.eql?("msms_pipeline_analysis") then
       #alter vars accordingly
       temphash = n.attributes
-      # temphash["xmlns-xsi"] = temphash.delete("xmlns:xsi")
-      # temphash["xsi-schemaLocation"] = temphash.delete("xsi:schemaLocation")
       klass.attributes = temphash
     elsif n.name.eql?("analysis_timestamp") then
       #alter accordingly
@@ -51,13 +50,19 @@ class Importer
     # puts "Class: " + klass.class.to_s  
     # puts "Attributes: " + klass.attributes.to_s
     unless klass.save
-      puts "EEERRRRRRRRRR => " + "#{klass.class}"
+      puts "ERROR Saving => " + "#{klass.class}"
       puts YAML.dump(klass)
     end
+
+    # now update progress
     #puts "count: #{@count.to_f/@num_nodes.to_f}"
     if (((@count.to_f/@num_nodes.to_f)*100).floor > @last_percent)
-      @last_percent = ((@count.to_f/@num_nodes.to_f)*100).floor 
-      puts "#{@last_percent}%"
+      @last_percent = ((@count.to_f/@num_nodes.to_f)*100).floor
+      time_remain = Time.now - @last_time
+      time_remain = (time_remain * (100-@last_percent)) / 60
+      time_remain = time_remain.ceil
+      @last_time = Time.now
+      puts "#{@last_percent}% (Est. < #{time_remain} mins left)"
     end
     @count += 1
 
@@ -99,6 +104,7 @@ puts "migrating..."
 DataMapper.auto_migrate!
 
 puts "Reading XML File #{ARGV[0]}..."
+puts `date`
 
 doc = Nokogiri::XML(open("#{ARGV[0]}"))
 size = doc.root.xpath('.//*').size
@@ -108,7 +114,7 @@ imp.traverseNode(doc.root, 0)
 
 unless ARGV[1].nil?
   puts "Reading XML File #{ARGV[1]}..."
-  
+  puts `date`
   doc = Nokogiri::XML(open("#{ARGV[1]}"))
   size = doc.root.xpath('.//*').size
   puts "Found #{size} nodes."
@@ -121,4 +127,4 @@ end
 
 
 puts 'Finished!'
-
+puts `date`

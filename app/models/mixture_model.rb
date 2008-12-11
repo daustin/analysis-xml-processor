@@ -3,7 +3,7 @@ class MixtureModel
   
   property :id, Serial
   property :precursor_ion_charge, Integer
-  property :comments, String, :length => (0..1000)
+  property :comments, String, :length => (0..2000)
   property :prior_probability, Float
   property :est_tot_correct, Float
   property :tot_num_spectra, Integer

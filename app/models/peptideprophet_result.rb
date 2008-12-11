@@ -3,8 +3,8 @@ class PeptideprophetResult
   
   property :id, Serial
   property :probability, Float
-  property :all_ntt_prob, String, :length => (0..1000)
-  property :analysis, String, :length => (0..1000) 
+  property :all_ntt_prob, String, :length => (0..2000)
+  property :analysis, String, :length => (0..2000) 
 
   has 1, :search_score_summary
 
