@@ -1,19 +1,14 @@
 class PeptideprophetSummary
   include DataMapper::Resource
+
+  #takes timestamp from parent analysis_summary
+
   
   property :id, Serial
-  property :version, String, :length => (0..2000)
-  property :author, String, :length => (0..2000)
-  property :min_prob, String, :length => (0..2000)
   property :options, String, :length => (0..2000)
-  property :est_tot_num_correct, Float
-  
-  has n, :inputfiles
-  has n, :roc_data_points
-  has n, :error_points
-  has n, :distribution_points
-  has n, :mixture_models
- 
-  belongs_to :analysis_summary
+  property :time, DateTime
+  property :XML, Text #includes entire peptideprophet_summary tag
+  property :XSL, Text
+
 
 end
